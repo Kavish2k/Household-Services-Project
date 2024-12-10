@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professional Home Page</title>
+  <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+  <style>
+    table{
+      font-size: 18px;
+    }
+  </style>
+</head>
+
+<body style="background-color:lightgoldenrodyellow">
+  <nav class="navbar navbar-expand-lg col-md-12" style="background-color:#3B9C9C; font-size: 25px; padding: 15px;">
+    <div class="container-fluid">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" href="{{url_for('pro_home',pro_id=pid)}}">Home</a>
+        </li>
+        {% if pro_data.pro_status=='Active' %}
+          <li class="nav-item">
+            <a class="nav-link" href="/pro/search/{{pid}}">Search</a>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true" href="/pro/search{{pid}}">Search</a>
+        {% endif %}
+        </li>
+        {% if pro_data.pro_status=='Active' %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('pro_summary',pro_id=pid)}}">Summary</a>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true" href="{{ url_for('pro_summary',pro_id=pid)}}">Summary</a>
+        {% endif %}
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/">Logout</a>
+        </li>
+      </ul>
+      <p class="mb-0" style="color:lightgoldenrodyellow; font-size:30px; font-weight:bold;">Welcome to Professional Dashboard</p>
+      <p class="mb-0" style="font-size:22px; font-weight:bold;">Abode Mantra: Your A-Z Cleaning Experts</p>
+    </div>
+  </nav>
+  <div class="row">
+    <div class="col-4">
+      <p class="mb-0 text-center" style="color:green; font-size:30px;">Service Type: <u>{{pro_data.pro_service_type}}</u></p>
+    </div>
+    <div class="col-4">
+      <p class="mb-0 text-center" style="color:cyan; font-size:30px;">Serviceable Pincode: <u>{{pro_data.pro_pincode}}</u></p>
+    </div>
+    <div class="col-4">
+      {% if pro_data.pro_status=='Active' %}
+        <p class="text-center"><a href="/pro/profile/{{pro_data.pro_id}}"
+            class="link-priamry link-offset-2 link-underline-opacity-100 link-underline-opacity-100-hover"
+            style="font-size:25px; font-weight: bold;">View Profile</a></p>
+      {% else %}
+        <p class="text-center"><a href="{{url_for('pro_home',pro_id=pid)}}"
+          class="link-danger link-offset-2 link-underline-opacity-100 link-underline-opacity-100-hover"
+          style="font-size:25px; font-weight: bold;">View Profile</a></p>
+      {% endif %}
+    </div>
+  </div>
+  <div class="container">
+    <div class="row my-3">
+      <p class="mb-0" style="color:teal; font-size:35px; font-weight:bold;">Today's Services</p>
+      <table class="table table-hover table-bordered border-primary">
+        <thead>
+          <th>Service Name</th>
+          <th>Service Price</th>
+          <th>Customer Name</th>
+          <th>Contact Number</th>
+          <th>Service Location</th>
+        </thead>
+        {% for z in serv_acc %}
+        <tr>
+          <td>{{z[1]}}</td>
+          <td>{{z[2]}}</td>
+          <td>{{z[3]}}</td>
+          <td>{{z[4]}}</td>
+          <td>{{z[5]}}
+            {{z[6]}}
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+    <div class="row my-3">
+      {% if serv_reqs %}
+        <p class="mb-0" style="color:teal; font-size:35px; font-weight:bold;">Service Requests</p>
+        <table class="table table-hover table-bordered border-primary">
+          <thead>
+            <th>Service Name</th>
+            <th>Service Price</th>
+            <th>Customer Name</th>
+            <th>Contact Number</th>
+            <th>Service Location</th>
+            <th>Date of Request</th>
+            <th>Action</th>
+          </thead>
+          {% for y in serv_reqs %}
+          <tr>
+            <td>{{y[1]}}</td>
+            <td>{{y[2]}}</td>
+            <td>{{y[3]}}</td>
+            <td>{{y[4]}}</td>
+            <td>{{y[5]}}
+              {{y[6]}}
+            </td>
+            <td>{{y[7]}}</td>
+            <td>
+              <div class="btn-group" role="group">
+                <a href="/pro/{{pid}}/service/accept/{{y[0]}}"><button type="button" class="btn btn-lg btn-warning">Accept Service</button></a>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      {% elif pro_data.pro_status=='Active' %}
+        <p class="mb-0" style="color:teal; font-size:35px; font-weight:bold;">Service Requests</p>
+        <table class="table table-hover table-bordered border-primary">
+          <thead>
+            <th>Service Name</th>
+            <th>Service Price</th>
+            <th>Customer Name</th>
+            <th>Contact Number</th>
+            <th>Service Location</th>
+            <th>Date of Request</th>
+            <th>Action</th>
+          </thead>
+          {% for y in serv_reqs %}
+          <tr>
+            <td>{{y[1]}}</td>
+            <td>{{y[2]}}</td>
+            <td>{{y[3]}}</td>
+            <td>{{y[4]}}</td>
+            <td>{{y[5]}}
+              {{y[6]}}
+            </td>
+            <td>{{y[7]}}</td>
+            <td>
+              <div class="btn-group" role="group">
+                <a href="/pro/{{pid}}/service/accept/{{y[0]}}"><button type="button" class="btn btn-lg btn-warning">Accept Service</button></a>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      {% else %}
+        <p class="display-3 text-center">You have been Blocked by Admin</p>
+        <p class="display-5 text-center">Contact Admin at kavish2k@gmail.com</p>
+      {% endif %}
+    </div>
+    <div class="row my-3">
+      <p class="mb-0" style="color:teal; font-size:35px; font-weight:bold;">Closed Services</p>
+      <table class="table table-hover table-bordered border-primary">
+        <thead>
+          <th>Service Name</th>
+          <th>Customer Name</th>
+          <th>Service Location</th>
+          <th>Service Remarks</th>
+          <th>Date of Completion</th>
+          <th>Service Rating</th>
+          <th>Professional Rating</th>
+        </thead>
+        {% for x in serv_hist %}
+          <tr>
+            <td>{{x[0]}}</td>
+            <td>{{x[1]}}</td>
+            <td>{{x[2]}} {{x[3]}}</td>
+            <td>{{x[4]}}</td> 
+            <td>{{x[5]}}</td>
+            <td>{{x[6]}}</td>
+            <td>{{x[7]}}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+</body>
+</html>

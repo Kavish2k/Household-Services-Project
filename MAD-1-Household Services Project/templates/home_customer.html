@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Home Page</title>
+  <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+  <style>
+    .card-link {
+      font-size: 25px;
+    }
+
+    .card-title {
+      font-size: 25px;
+    }
+    .card-text{
+      font-size: 20px;
+    }
+    table{
+      font-size: 18px;
+    }
+  </style>
+</head>
+
+<body style="background-color:lightgoldenrodyellow">
+  <nav class="navbar navbar-expand-lg col-md-12" style="background-color:lightcyan; font-size: 25px; padding: 20px;">
+    <div class="container-fluid">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" href="{{url_for('customer_home',customer_id=c_id)}}">Home</a>
+        </li>
+        {% if status=='Active' %}
+          <li class="nav-item">
+            <a class="nav-link" href="/customer/search/{{c_id}}">Search</a>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true"  href="/customer/search/{{c_id}}">Search</a>
+        {% endif %}
+        </li>
+        {% if status=='Active' %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('customer_summary',customer_id=c_id)}}">Summary</a>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link disabled" href="{{ url_for('customer_summary',customer_id=c_id)}}">Summary</a>
+        {% endif %}
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/">Logout</a>
+        </li>
+      </ul>
+      <p class="mb-0" style="color:teal; font-size:30px; font-weight:bold;">Welcome to Customer Dashboard</p>
+      <p class="mb-0" style="font-size:22px; font-weight:bold;">Abode Mantra: Your A-Z Cleaning Experts</p>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row">
+      {% if status=='Active' %}
+        <p class="text-end"><a href="/customer/profile/{{c_data.customer_id}}"
+            class="link-info link-offset-2 link-underline-opacity-100 link-underline-opacity-100-hover"
+            style="font-size:25px; font-weight: bold;">View Profile</a></p>
+      {% else %}
+        <p class="text-end"><a href="{{url_for('customer_home',customer_id=c_id)}}"
+          class="link-danger link-offset-2 link-underline-opacity-100 link-underline-opacity-100-hover"
+          style="font-size:25px; font-weight: bold;">View Profile</a></p>
+      {% endif %}
+    </div>
+    <div class="row">
+      {% if status=='Active'%}
+        {% for x in s_data %}
+          <div class="card w-25 my-2 text-center" style="padding:5px; margin:auto; border: 5px solid teal;">
+            <div class="card-body">
+              <h5 class="card-title">{{x}} Services</h5>
+              <p class="card-text">All in One {{x}} Packages, Available Now!</p>
+              <a href="/customer/{{c_id}}/book/{{x}}"><button class="btn btn-success card-link">Book Now</button></a>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="display-3 text-center"> You have been Blocked by Admin </p>
+        <p class="display-5 text-center">Contact Admin at kavish2k@gmail.com</p>
+      {% endif %}
+    </div>
+    {% if status =='Active'%}
+      <div class="row my-5">
+        <p class="mb-0" style="color:teal; font-size:40px; font-weight:bold;">Service History</p>
+        <table class="table table-hover table-bordered border-primary">
+          <thead>
+            <th>Service Type</th>
+            <th>Service Name</th>
+            <th>Assigned Professional</th>
+            <th>Professional's Experience</th>
+            <th>Contact Number</th>
+            <th>Date of Request</th>
+            <th>Status</th>
+            <th>Action</th>
+          </thead>
+          {% for y in serv_hist %}
+            <tr>
+              <td>{{y[1]}}</td>
+              <td>{{y[2]}}</td>
+              <td>{{y[3]}}</td>
+              {% if y[4]==None %}
+                <td>{{y[4]}}</td>
+              {% else %}
+                <td>{{y[4]}} Yrs</td>
+              {% endif %}
+              <td>{{y[5]}}</td>
+              <td>{{y[6]}}</td>
+              {% if y[7]=='Closed' %}
+                <td>Closed</td>
+                <td>
+                Service was rated <strong>{{y[8]}}</strong> Stars<br>
+                Professional was rated <strong>{{y[9]}}</strong> Stars
+                </td>
+              {% elif y[7]=='Cancelled' %}
+                <td>Cancelled</td>
+                <td>Cancelled by Customer/Admin</td>
+              {% elif y[7]=='Requested' %}
+                <td>{{y[7]}}</td>
+                <td>
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-warning" disabled>Close Service?</button>
+                    <a href="/customer/{{c_id}}/service/cancel/{{y[0]}}"><button type="button" class="btn btn-danger">Cancel Service?</button></a>
+                  </div>
+                </td>
+              {% else %}
+                <td>{{y[7]}}</td>
+                <td>
+                  <div class="btn-group" role="group">
+                    <a href="/customer/{{c_id}}/service/close/{{y[0]}}"><button type="button" class="btn btn-warning">Close Service?</button></a>
+                    <a href="/customer/{{c_id}}/service/cancel/{{y[0]}}"><button type="button" class="btn btn-danger">Cancel Service?</button></a>
+                  </div>
+                </td>
+              {%endif%}
+            </tr>
+            {% endfor %}
+        </table>
+      </div>
+    {% else %}
+      <div class="row my-5">
+        <p class="mb-0" style="color:teal; font-size:40px; font-weight:bold;">Service History</p>
+        <table class="table table-hover table-bordered border-primary">
+          <thead>
+            <th>Service Type</th>
+            <th>Service Name</th>
+            <th>Assigned Professional</th>
+            <th>Professional's Experience</th>
+            <th>Contact Number</th>
+            <th>Date of Request</th>
+            <th>Status</th>
+            <th>Action</th>
+          </thead>
+          {% for y in serv_hist %}
+            <tr>
+              <td>{{y[1]}}</td>
+              <td>{{y[2]}}</td>
+              <td>{{y[3]}}</td>
+              {% if y[4]==None %}
+                <td>{{y[4]}}</td>
+              {% else %}
+                <td>{{y[4]}} Yrs</td>
+              {% endif %}
+              <td>{{y[5]}}</td>
+              <td>{{y[6]}}</td>
+              {% if y[7]=='Closed' %}
+                <td>Closed</td>
+                <td>
+                Service was Rated <strong>{{y[8]}}</strong> Stars<br>
+                Professional was Rated <strong>{{y[9]}}</strong> Stars
+                </td>
+              {% else %}
+                <td>Cancelled</td>
+                <td>Cancelled by Customer/Admin</td>
+              {%endif%}
+            </tr>
+            {% endfor %}
+        </table>
+      </div>
+    {% endif %}
+  </div>
+
+</body>
+
+</html>

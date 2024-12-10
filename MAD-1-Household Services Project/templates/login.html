@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abode Mantra Login</title>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <style>
+        #emailbox{
+            border: 2px solid ;
+            height: 35px;
+            width: 300px;
+            margin: auto;
+        
+        
+        }
+        #passwordbox{
+            border: 2px solid ;
+            height: 35px;
+            width: 225px;
+            margin:auto;  
+        }
+        #login-form{
+        height: 400px;
+        width: 800px;
+        border: 10px solid teal;
+        border-radius: 10px;
+        text-align: center;
+        background-color:lightgoldenrodyellow;
+        font-size: 25px;
+        margin: auto;
+    
+        
+        }
+        .Login-Title{
+            background-color:lightgoldenrodyellow;
+            font-style: italic;
+            font-weight: bolder;
+            padding: 20px;
+            font-size: 80px;
+            font-family:'Times New Roman', Times, serif;
+            color:#00827f;
+           
+        
+        }
+        .Login-subtitle{
+            background-color:lightgoldenrodyellow;
+            font-style: italic;
+            padding: 15px;
+            font-size: 30px;
+            font-weight: bolder;
+            color:lightseagreen;
+
+           
+        }
+
+        .Login-welcome{
+            background-color:lightgoldenrodyellow;
+            padding: 5px;
+            font-size: 35px;
+            font-weight: bolder;
+            color:black;
+            margin: auto;
+        }
+        body{
+            background-color:lightgoldenrodyellow;
+        }
+      
+
+    </style>
+</head>
+<body>
+    <h1 class="Login-Title display-1 text-center">Abode Mantra:Your A-Z Cleaning Experts</h1>
+    <hr style="border:9px dashed lightseagreen;">
+    <p class="Login-subtitle text-center">Experience the Comfort and Satisfaction of a Perfectly Maintained Home</p><br>
+    <img class="img-fluid rounded float-end" style="height: 440px; width: 440px;" src="/static/bucket-303265_640-copywritefreefromPixabay.png">
+    <img class="img-fluid rounded float-start" style="height: 440px; width: 440px;" src="/static/cleaning-up-294085_1920-copywritefreefromPixabay.png">
+    <div>
+        <form method="POST">
+            <div id="login-form">
+                <p style="font-weight:bolder;font-size:40px;padding: 15px;">Welcome to the Login Page!</p>
+                <div class="mb-4">
+                    <label for="exampleInputEmail1" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="emailbox" name="email" aria-describedby="emailHelp" required>
+                </div>
+                <div class="mb-4">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="passwordbox"  name="password" required>
+                </div>
+                <button type="submit" class="btn btn-success btn-lg p-2 col-md-3" id="btn-login">Login</button>
+            </div>
+        </form><br><br>
+        <div style="background-color:lightgoldenrodyellow;">
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="/register/customer"><button class="btn btn-primary btn-lg">New Customer? Register Now!</button></a>
+                        <a href="/register/pro"><button class="btn btn-warning btn-lg">Service Professionals Register Here!</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><br>
+    <hr style="border:9px dashed lightseagreen">
+</body>
+</html>

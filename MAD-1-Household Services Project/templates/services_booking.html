@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Booking</title>
+  <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+  <style>
+    table {
+      font-size: 18px;
+    }
+  </style>
+
+</head>
+
+<body style="background-color: lightgoldenrodyellow;">
+  <nav class="navbar navbar-expand-lg col-md-12" style="background-color:lightcyan; font-size: 25px; padding: 20px;">
+    <div class="container-fluid">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" href="{{url_for('customer_home',customer_id=c_id)}}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/customer/search/{{c_id}}">Search</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('customer_summary',customer_id=c_id)}}">Summary</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/">Logout</a>
+        </li>
+      </ul>
+      <p class="mb-0" style="color:teal; font-size:30px; font-weight:bold;">Welcome to Customer Dashboard</p>
+      <p class="mb-0" style="font-size:22px; font-weight:bold;">Abode Mantra: Your A-Z Cleaning Experts</p>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div class="row my-5">
+        <p class="mb-0" style="color:teal; font-size:40px; font-weight:bold;">Available Packages</p>
+        <table class="table table-hover table-bordered border-primary">
+          <thead>
+            <th>Type</th>
+            <th>Name</th>
+            <th>Price ₹</th>
+            <th>Description</th>
+            <th>Action</th>
+          </thead>
+          {% for x in service %}
+          <tr>
+            <td>{{x.service_type}}</td>
+            <td>{{x.service_name}}</td>
+            <td>{{x.service_price}}</td>
+            <td>{{x.service_desc}}</td>
+            <td>
+              <form method="POST">
+                <div class="btn-group" role="group">
+                  <a href="/customer/{{c_id}}/booked/{{x.service_id}}"><button type="button"
+                      class="btn btn-lg btn-primary">Book</button></a>
+                </div>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+    <div class="row my-5">
+      <p class="mb-0" style="color:teal; font-size:40px; font-weight:bold;">Service History</p>
+      <table class="table table-hover table-bordered border-primary">
+        <thead>
+          <th>Service Type</th>
+          <th>Service Name</th>
+          <th>Assigned Professional</th>
+          <th>Professional's Experience</th>
+          <th>Contact Number</th>
+          <th>Date of Request</th>
+          <th>Status</th>
+          <th>Action</th>
+        </thead>
+        {% for y in serv_hist %}
+        <tr>
+          <td>{{y[1]}}</td>
+          <td>{{y[2]}}</td>
+          <td>{{y[3]}}</td>
+          {% if y[4]==None %}
+            <td>{{y[4]}}</td>
+          {% else %}
+            <td>{{y[4]}} Yrs</td>
+          {% endif %}
+          <td>{{y[5]}}</td>
+          <td>{{y[6]}}</td>
+          {% if y[7]=='Closed' %}
+          <td>Closed</td>
+          <td>
+            Service was rated <strong>{{y[8]}}</strong> Stars<br>
+            Professional was rated <strong>{{y[9]}}</strong> Stars
+          </td>
+          {% elif y[7]=='Cancelled' %}
+          <td>Cancelled</td>
+          <td>Cancelled by Customer</td>
+          {% elif y[7]=='Requested' %}
+          <td>{{y[7]}}</td>
+          <td>
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-warning" disabled>Close Service?</button>
+              <a href="/customer/{{c_id}}/service/cancel/{{y[0]}}"><button type="button" class="btn btn-danger">Cancel Service?</button></a>
+            </div>
+          </td>
+          {% else %}
+          <td>{{y[6]}}</td>
+          <td>
+            <div class="btn-group" role="group">
+              <a href="/customer/{{c_id}}/service/close/{{y[0]}}"><button type="button" class="btn btn-warning">Close
+                  Service?</button></a>
+              <a href="/customer/{{c_id}}/service/cancel/{{y[0]}}"><button type="button" class="btn btn-danger">Cancel
+                  Service?</button></a>
+            </div>
+          </td>
+          {%endif%}
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+
+</body>
+
+</html>

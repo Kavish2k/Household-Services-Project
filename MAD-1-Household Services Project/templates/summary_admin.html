@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Summary</title>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+
+<body style="background-color: lightgoldenrodyellow">
+    <nav class="navbar navbar-expand-lg col-md-12" style="background-color:lightcyan; font-size: 25px; padding: 20px;">
+        <div class="container-fluid">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/search">Search</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/admin/summary">Summary</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Logout</a>
+                </li>
+            </ul>
+            <p class="mb-0" style="color:#00827f; font-size:30px; font-weight:bold;">Welcome to Admin Dashboard</p>
+            <p class="mb-0" style="font-size:22px; font-weight:bold;">Abode Mantra: Your A-Z Cleaning Experts</p>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <canvas id="DoughnutChart"></canvas>
+            </div>
+            <div class="col-6">
+                <canvas id="BarChart"></canvas>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var chartid= document.getElementById('DoughnutChart')
+            var barid=document.getElementById('BarChart')
+            var doughnutchart= new Chart(chartid,{
+                type:'doughnut',
+                data:{
+                    labels:{{labels_ratings|safe}},
+                    datasets:[{
+                            data:{{data_ratings|safe}},
+                            backgroundColor:[
+                                'rgb(153, 102, 255)',
+                                'rgb(255, 99, 132)',
+                                'rgb(54, 162, 235)',
+                                'rgb(255, 206, 86)',
+                                'rgb(75, 192, 100)'
+                            ],
+                            hoverOffset: 4,
+                        }],
+                },
+                options:{
+                    radius:'80%',
+                    responsive:true,
+                    plugins:{
+                        title: {
+                            display: true,
+                            text:'Overall Customer Service Ratings',
+                            font:{
+                                weight:'bold',
+                                size:35
+                            }
+
+                        },
+                        legend:{
+                            position:'bottom',
+                        }
+                    }
+                }
+            });
+            var barchart=new Chart(barid,{
+                type:'bar',
+                data:{
+                    labels:{{labels_service|safe}},
+                    datasets:[{
+                        data:{{data_service|safe}},
+                        backgroundColor:[
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(75, 192, 100)',
+                            'rgb(255, 0, 0)'
+                        ],
+                        hoverOffset: 4,
+                        barPercentage: 0.7,
+                        }],
+                },
+                options:{
+                    responsive:true,
+                    plugins:{
+                        title: {
+                            display: true,
+                            text:'Overall Service Statuses',
+                            font:{
+                                weight:'bold',
+                                size:35
+                            }
+
+                        },
+                        legend:{
+                            display:false
+                        }
+                    }
+                }
+            });
+        </script>
+    </div>
+
+</body>
+
+</html>

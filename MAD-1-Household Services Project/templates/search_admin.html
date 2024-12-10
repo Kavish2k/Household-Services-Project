@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Search Page</title>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <style>
+       .container{
+        font-size: 15px;
+       }
+    </style>
+</head>
+
+<body style="background-color: lightgoldenrodyellow">
+    <nav class="navbar navbar-expand-lg col-md-12" style="background-color:lightcyan; font-size: 25px; padding: 20px;">
+        <div class="container-fluid">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/admin/search">Search</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/summary">Summary</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Logout</a>
+                </li>
+            </ul>
+            <p class="mb-0" style="color:#00827f; font-size:30px; font-weight:bold;">Welcome to Admin Dashboard</p>
+            <p class="mb-0" style="font-size:22px; font-weight:bold;">Abode Mantra: Your A-Z Cleaning Experts</p>
+        </div>
+    </nav>
+    <div class="container">
+        <form method="POST" id="search-form">
+            <div class="row my-5">
+                <div class="col-md-6">
+                    <select class="form-select" name="search_cat" required>
+                        {% for x in data %}
+                        <option value="{{x}}">{{x}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4 text-end">
+                    <input class="form-control me-2" type="search" id="search_q" name="search_q"
+                        placeholder="Search by:">
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-lg btn-outline-success" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+        {% if dtable %}
+            <div class="row">
+                {% if table_name=='Services'%}
+                <p class="text-center display-4" style="color:lightseagreen;font-weight:bold;">{{table_name}}</p>
+                <table class="table table-hover table-bordered border-primary">
+                    <thead>
+                        {% for x in data_cols %}
+                        <th scope="col">{{x}}</th>
+                        {% endfor %}
+                    </thead>
+                    {% for y in dtable %}
+                    <tr>
+                        <td>{{y.service_id}}</td>
+                        <td>{{y.service_type}}</td>
+                        <td>{{y.service_name}}</td>
+                        <td>{{y.service_price}}</td>
+                        <td>{{y.service_duration}}</td>
+                        <td>{{y.service_desc}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% elif table_name=='ServiceRequests'%}
+                <p class="text-center display-4" style="color:lightseagreen;font-weight:bold;">{{table_name}}</p>
+                <table class="table table-hover table-bordered border-primary">
+                    <thead>
+                        {% for x in data_cols %}
+                            {% if x =='service_id'%}
+                                <th>service_type</th>
+                            {% elif x=='customer_id'%}
+                                <th>customer_name</th>
+                            {% elif x=='pro_id' %}
+                                <th>professional_name</th>
+                                <th>professional_experience</th>
+                            {% else %}
+                                <th>{{x}}</th>
+                            {% endif %}
+                        {% endfor %}
+                    </thead>
+                    {% for y in dtable %}
+                    <tr>
+                        <td>{{y.sr_id}}</td>
+                        <td>{{y.sr.service_name}}</td>
+                        <td>{{y.cr.customer_name}}</td>
+                        <td>{{y.srp.pro_name}}</td>
+                        <td>{{y.srp.pro_exp}}</td>
+                        <td>{{y.date_of_req}}</td>
+                        <td>{{y.date_of_comp}}</td>
+                        <td>{{y.service_status}}</td>
+                        <td>{{y.service_remarks}}</td>
+                        <td>{{y.service_rating}}</td>
+                        <td>{{y.pro_rating}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% elif table_name=='Professionals'%}
+                <p class="text-center display-4" style="color:lightseagreen;font-weight:bold;">{{table_name}}</p>
+                <table class="table table-hover table-bordered border-primary">
+                    <thead>
+                        {% for x in data_cols %}
+                        <th>{{x}}</th>
+                        {% endfor %}
+                        <th>pro_avg_rating</th>
+                        <th>Action</th>
+                    </thead>
+                    {% for y in dtable %}
+                    <tr>
+                        <td>{{y.pro_id}}</td>
+                        <td>{{y.pro_name}}</td>
+                        <td>{{y.pro_contact_no}}</td>
+                        <td>{{y.pro_service_type}}</td>
+                        <td>{{y.pro_exp}}</td>
+                        <td>{{y.pro_pincode}}</td>
+                        {% if y.pro_status=='Active'%}
+                            <td>{{y.pro_status}}</td>
+                            {% for i in ratings %}
+                                {% if i[0]==y.pro_id %}
+                                    <td>{{i[1]}}</td>
+                                {%endif%}
+                            {% endfor %}
+                            <td><a href="/admin/pro/block/{{y.pro_id}}"><button type="button" class="btn btn-danger">Block</button></a></td>
+                        {% else %}
+                            <td>{{y.pro_status}}</td>
+                            {% for i in ratings %}
+                                {% if i[0]==y.pro_id %}
+                                    <td>{{i[1]}}</td>
+                                {%endif%}
+                            {%endfor%}
+                            <td><a href="/admin/pro/unblock/{{y.pro_id}}"><button type="button" class="btn btn-warning">Unblock</button></a></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% elif table_name=='Customers'%}
+                <p class="text-center display-4" style="color:lightseagreen;font-weight:bold;">{{table_name}}</p>
+                <table class="table table-hover table-bordered border-primary">
+                    <thead>
+                        {% for x in data_cols %}
+                        <th>{{x}}</th>
+                        {% endfor %}
+                        <th>Action</th>
+                    </thead>
+                    {% for y in dtable %}
+                    <tr>
+                        <td>{{y.customer_id}}</td>
+                        <td>{{y.customer_name}}</td>
+                        <td>{{y.customer_contact_no}}</td>
+                        <td>{{y.customer_address}}</td>
+                        <td>{{y.customer_pincode}}</td>
+                        {% if y.customer_status=='Active' %}
+                            <td>{{y.customer_status}}</td>
+                            <td><a href="/admin/customer/block/{{y.customer_id}}"><button type="button" class="btn btn-danger">Block</button></a></td>
+                        {% else %}
+                            <td>{{y.customer_status}}</td>
+                            <td><a href="/admin/customer/unblock/{{y.customer_id}}"><button type="button" class="btn btn-warning">Unblock</button></a></td>
+                        {%endif%}
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% else %}
+                    <p class="text-center display-4" style="color:lightseagreen;font-weight:bold;">{{table_name}}</p>
+                    <table class="table table-hover table-bordered border-primary">
+                    <thead>
+                        {% for x in data_cols %}
+                        <th>{{x}}</th>
+                        {% endfor %}
+                        <th>user_role</th>
+                    </thead>
+                    {% for y in dtable %}
+                        <tr>
+                            <td>{{y.user_id}}</td>
+                            <td>{{y.user_email}}</td>
+                            <td>{{y.user_role}}</td>
+                            <td>{{y.ur.role_desc}}</td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+
+</html>

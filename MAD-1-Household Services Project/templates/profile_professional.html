@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Profile</title>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <style>
+        #Profile-form {
+            background-color:lightgoldenrodyellow;
+            padding: 15px;
+            font-size: 25px;
+            margin: auto;
+            border: 10px solid lightseagreen;
+            height: 650px;
+            width: 1100px;
+        }
+    </style>
+</head>
+
+<body style="background-color:lightgoldenrodyellow">
+    <nav class="navbar navbar-expand-lg col-md-12" style="background-color:#3B9C9C; font-size: 25px; padding: 15px;">
+        <div class="container-fluid">
+            <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link active" href="{{url_for('pro_home',pro_id=pid)}}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pro/search/{{pid}}">Search</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('pro_summary',pro_id=pid)}}">Summary</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/">Logout</a>
+            </li>
+            </ul>
+            <p class="mb-0" style="color:lightgoldenrodyellow; font-size:30px; font-weight:bold;">Welcome to Professional Dashboard</p>
+            <p class="mb-0" style="font-size:22px; font-weight:bold;">Abode Mantra: Your A-Z Cleaning Experts</p>
+        </div>
+    </nav>
+    <p class="mb-0 text-center" style="color:teal; font-size:35px; font-weight:bold;">Edit Your Profile</p><br>
+    <div class="container">
+        <div class="row" id="Profile-form">
+            <form method="POST" class="text-center">
+                <div class="mb-2 col-md-3" style="text-align: center;padding:0px;margin:auto">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="name" name="fullname" value="{{pro_data.pro_name}}" required>
+                </div>
+                <div class="mb-2 col-md-3" style="text-align: center;padding:0px;margin:auto">
+                    <label for="name" class="form-label">Contact Number</label>
+                    <input type="tel" class="form-control" name="pro_contact_no" value="{{pro_data.pro_contact_no}}" min="10" max="10" required>
+                </div>
+                <div class="mb-2 col-md-3" style="text-align: center;padding:0px;margin:auto">
+                    <label for="inputEmail4" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="inputEmail4" value="{{pro_data.pro_email}}" name="email" disabled>
+                </div>
+                <div class="mb-2 col-md-3" style="text-align: center;padding:0px;margin:auto">
+                    <label for="name" class="form-label">Service Type</label>
+                    <select class="form-select" name="service_type">
+                        <option selected>{{pro_data.pro_service_type}}</option>
+                        {% for x in service_data %}
+                        <option value="{{x}}">{{x}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-2 col-md-3" style="text-align: center;padding:0px;margin:auto">
+                    <label for="name" class="form-label">Years of Experience</label>
+                    <input type="number" class="form-control" id="exp" name="yrs_of_exp" value="{{pro_data.pro_exp}}" required>
+        
+                </div>
+                <div class="mb-2 col-md-3" style="text-align: center;padding:0px;margin:auto">
+                    <label for="inputZip" class="form-label">Serviceable Pincode</label>
+                    <input type="text" class="form-control" id="inputZip" name="pincode" value="{{pro_data.pro_pincode}}" required>
+                </div>
+                <div class="col-md-3" style="text-align: center;padding:0px;margin:auto">
+                    <button type="submit" class="btn btn-warning btn-lg p-2 col-6">Submit</button>
+                </div>
+        </div>
+    </div>
+</body>
+</html>

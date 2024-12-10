@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abode Mantra Professional</title>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <style>
+        html{
+            background-color:lightgoldenrodyellow;
+        }
+        .Login-Title{
+            background-color:lightgoldenrodyellow;
+            font-style: italic;
+            font-weight: bolder;
+            padding: 20px;
+            font-size: 80px;
+            font-family:'Times New Roman', Times, serif;
+            color:#00827f;
+        
+        }
+        .Login-subtitle{
+            background-color:lightgoldenrodyellow;
+            font-style: italic;
+            padding: 15px;
+            font-size: 30px;
+            font-weight: bolder;
+            color:lightseagreen;
+        }
+        #Login-form{
+            height: 560px;
+            width: 1000px;
+            border: 10px solid teal;
+            border-radius: 10px;
+            background-color:lightgoldenrodyellow;
+            font-size: 24px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body style="background-color: lightgoldenrodyellow;">
+    <div id="title">
+        <h1 class="Login-Title display-1 text-center">Abode Mantra:Your A-Z Cleaning Experts</h1>
+        <hr style="border:9px dashed lightseagreen;">
+        <p class="Login-subtitle text-center">Experience the Comfort and Satisfaction of a Perfectly Maintained Home</p>
+    </div>
+    <div class="container text-start" style="margin:0px;">
+        <div class="row">
+            <a href="/"><button type="button" class="btn btn-danger btn-lg">Go back to Login Page</button></a>
+        </div>
+    </div>
+    <div class="container" id="Login-form">
+        <form method="POST">
+            <h2 class="text-center" style="font-weight:bolder;font-size:35px;padding:15px;">Welcome to Service Professional Registration!</h2>
+            <div class="row d-flex justify-content-center">
+                <div class="mb-3 col-md-5">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="name" name="fullname" required>
+                </div>
+                <div class="mb-3 col-md-3">
+                    <label for="name" class="form-label">Contact Number</label>
+                    <input type="tel" class="form-control" name="pro_contact_no" min="10" max="10" required>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="mb-3 col-md-5">
+                    <label for="inputEmail4" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="inputEmail4" name="email" required>
+                </div>
+                <div class="mb-3 col-md-3">
+                    <label for="inputPassword4" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="inputPassword4" name="password" required>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="mb-3 col-md-5">
+                    <label for="name" class="form-label">Service Type</label>
+                    <select class="form-select" name="service_type" required>
+                        {% for x in service_data %}
+                        <option value="{{x}}">{{x}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3 col-md-3">
+                    <label for="name" class="form-label">Years of Experience</label>
+                    <input type="number" class="form-control" id="exp" name="yrs_of_exp" min="1" max="20" required>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="mb-3 col-md-5">
+                    <label for="formFile" class="form-label">Attach Your Documents(Single PDF)</label>
+                    <input class="form-control" type="file" id="File" name="File">
+                </div>
+                <div class="mb-3 col-md-3">
+                    <label for="inputZip" class="form-label">Serviceable Pincode</label>
+                    <input type="text" class="form-control" id="inputZip" name="pincode" required>  
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center">
+                    <button type="submit" class="btn btn-warning btn-lg p-2 col-md-2">Register</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
