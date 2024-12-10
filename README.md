@@ -56,11 +56,6 @@ This project is a multi-user application designed for **Admin**, **Customers**, 
 
 ---
 
-## 🎥 Project Demo:
-[Watch the Demo Video](https://drive.google.com/file/d/1Kd8GeC4Gw6U379XNQ8HrCnM6g1parl2P/view?usp=sharing)
-
----
-
 ## 📌 ER Diagram:
 ![ER Diagram](MAD-1-Household%20Services%20Project/ER%20DIAGRAM.png)
 
