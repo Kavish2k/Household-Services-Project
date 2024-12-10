@@ -24,7 +24,7 @@
 This project is a multi-user application designed for **Admin**, **Customers**, and **Professionals**, providing comprehensive home servicing and solutions. The development was structured in phases:
 
 1. **Database Initialization**: Created tables for users, services, and requests with SQLite3, incorporating password hashing with bcrypt.
-2. **Coding Environment Setup**: Modularized code, started with login/registration, and implemented Bootstrap for UI and Jinja2 for templates.
+2. **Coding Environment Setup**: Modularized code and implemented Bootstrap for UI and Jinja2 for templates.
 3. **Frontend Development**: Leveraged HTML, CSS, and JavaScript to create an intuitive and responsive user interface, including **frontend validation on forms** for better user experience and data integrity.
 4. **Controllers Development**: Handled different user roles using Flask and Flask-SQLAlchemy.
 5. **Testing**: Utilized dummy data to verify the backend and frontend functionality.
