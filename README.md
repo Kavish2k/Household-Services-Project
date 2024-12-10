@@ -62,6 +62,6 @@ This project is a multi-user application designed for **Admin**, **Customers**, 
 ---
 
 ## 📌 ER Diagram:
-![ER Diagram](path-to-your-image/er-diagram.png)
+![ER Diagram](MAD-1-Household%20Services%20Project/ER%20DIAGRAM.png)
 
 ---
