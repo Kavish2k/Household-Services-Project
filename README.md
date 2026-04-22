@@ -1,9 +1,24 @@
-# 🏠 Household Services Application
+# 🏠 Household-Services-App-V1
 
 ## 🚀 Project Title: 
-**Abode Mantra: Your A-Z Cleaning Experts**
+**Abode Mantra: Your A-Z Cleaning Experts V1**
+---
 
-## Project Demo Video: https://drive.google.com/file/d/1Kd8GeC4Gw6U379XNQ8HrCnM6g1parl2P/view?usp=sharing
+![Project](https://img.shields.io/badge/Project-MVC%20Web%20System-blue)
+![Type](https://img.shields.io/badge/Type-MPA%20(Server--Rendered)-yellow)
+![Stack](https://img.shields.io/badge/Stack-Flask%20%2B%20SQLite-violet)
+![Architecture](https://img.shields.io/badge/Architecture-MVC%20Pattern-red)
+![Features](https://img.shields.io/badge/Features-RBAC%2C%20CRUD-teal)
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
+
+---
+
+## 🎥 [Project Demo Video:](https://drive.google.com/file/d/1Kd8GeC4Gw6U379XNQ8HrCnM6g1parl2P/view?usp=sharing)
+
+---
+
+### 🏠 Home Page
+![Home](path/to/home.png)
 
 ---
 
@@ -43,6 +58,9 @@ This project is a multi-user application designed for **Admin**, **Customers**, 
 5. Search and block/unblock users with restricted access post-blocking.
 6. Summarize service ratings and statuses.
 
+![Admin Dashboard]()
+
+
 ### 🧍 Customer:
 1. Book, close, or cancel services by pin code.
 2. Book different service types simultaneously.
@@ -55,6 +73,8 @@ This project is a multi-user application designed for **Admin**, **Customers**, 
 2. Handle one request at a time, allowing subsequent requests post-completion.
 3. View past/current requests and edit profile.
 4. Summarize customer ratings and request statuses.
+
+![Summary Page]()
 
 ---
 
